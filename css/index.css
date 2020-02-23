@@ -163,3 +163,12 @@ video#vidFondo {
 .card-action {
     text-align: right;
 }
+#image{
+
+      background-image: url("../img/beach_huts.jpg")!important;
+        background-repeat: no-repeat;
+  background-position: cover;
+  background-attachment: fixed;
+  background-size: cover;
+ 
+}

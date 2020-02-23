@@ -49,62 +49,72 @@ function playVideoOnScroll() {
 }
 
 
-playVideoOnScroll();
-inicializarSlider();
+
 $(document).ready(function() {
+    init();
+    inicializarSlider();
+
 
 
     $("#mostrarTodos").click(function() {
 
         $.getJSON("data-1.json", function(result) {
-            $.each(result, function(c, v) {
-                $(".lista").append(
-
-                    "<div class='row z-depth-3'>" +
-
-                    "<div class='card'>" +
-                    "<div class='card-image waves-effect waves-block waves-light col s12 m6 l4'>" +
-                    "<img class='activator' src='img/home.jpg'>" +
-                    "</div>" +
-                    "<div class='card-stacked col s12 m6 l8'>" +
-                    "<div class='card-content'>" +
-                    "<div>" +
-                    "<b> Direccion: </b>" +
-                    v.Direccion + " </div> " +
-                    "<div>" +
-                    "<b> Ciudad: </b>" +
-                    v.Ciudad + "</div>" +
-                    "<div>" +
-                    "<b> Telefono: </b>" +
-                    v.Telefono + "</div>" +
-                    "<div>" +
-                    "<b> Código postal: </b>" +
-                    v.Codigo_Postal +
-                    "</div> " +
-                    "<div>" +
-                    "<b>" + "Precio: </b>" +
-                    v.Precio +
-                    "</div>" +
-                    " <div>" +
-                    "<b> Tipo: </b>" +
-                    v.Tipo + "</div> " +
-
-                    "<div class='card-action'>" +
-                    "<a href='#'>Leer mas</a>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-
-                    "</div>"
-
-
-                )
-
-            })
+            showResult(result)
         });
     });
+
+    function showResult(array) {
+
+        for (let i = 0; i < array.length; i++) {
+            $(".lista").append(
+
+                "<div class='row z-depth-2'>" +
+
+                "<div class='card'>" +
+                "<div class='card-image waves-effect waves-block waves-light col s12 m6 l4'>" +
+                "<img class='activator' src='img/home.jpg'>" +
+                "</div>" +
+                "<div class='card-stacked col s12 m6 l8' irs-min>" +
+                "<div class='card-content'>" +
+                "<div>" +
+                "<b> Direccion: </b>" +
+                `${array[i].Direccion} ` + " </div> " +
+                "<div>" +
+                "<b> Ciudad: </b>" +
+                `${array[i].Ciudad} ` + "</div>" +
+                "<div>" +
+                "<b> Telefono: </b>" +
+                `${array[i].Telefono} ` + "</div>" +
+                "<div>" +
+                "<b> Código postal: </b>" +
+                `${array[i].Codigo_Postal} ` +
+                "</div> " +
+                "<div>" +
+                "<b>" + "Precio: </b>" +
+                "<b class='precioTexto'>" + `${array[i].Precio} ` + "</b>" +
+                "</div>" +
+                " <div>" +
+                "<b> Tipo: </b>" +
+                `${array[i].Tipo} ` + "</div> " +
+                "</div>" +
+
+                "<div class='card-action'>" +
+                "<a href='#'>Leer mas</a>" +
+                "</div>" +
+                "</div>" +
+
+                "</div>" +
+                "</div>" +
+
+                "</div>"
+
+
+
+            )
+        }
+
+    }
+
 
 
 
@@ -113,73 +123,36 @@ $(document).ready(function() {
 
 });
 
-/*function cargarDatos() {
-    var data = $(this).serializeArray();
-    data.push({ name: 'tag', value: 'login' })
-
-    $.ajax({
-
-            url: 'modulo.php',
-            type: 'post',
-            dataType: 'json',
-            data: data,
-            beforeSend: function() {
-                $('#fas').css({ 'display': 'inline' });
-            }
-        })
-        .done(function() {
-            $('span').html("correcto");
-        }).fail(function() {
-            $('span').html("falso")
-        }).always(function() {
-            $('#fas').hide();
-
-        })*/
-
-
-/*function sendrequest() {
-        var obj = new XMLHttpRequest();
-        obj.open('POST', 'modulo.php', true);
-        obj.setRequestHeader('Content-Type', 'aplication/x-www-form-urlencode');
-        obj.onreadystatechange = function() {
-            document.getElementById('titulo').innerHTML = obj.responseText;
+function init() {
+    var tipos = [];
+    var ciudades = [];
+    $.get('data-1.json', function(data) {
+        for (let i = 0; i < data.length; i++) {
+            if (tipos.indexOf(data[i].Tipo) === -1) tipos.push(data[i].Tipo);
+            if (ciudades.indexOf(data[i].Ciudad) === -1) ciudades.push(data[i].Ciudad);
         }
-        obj.send();
+        for (let i = 0; i < ciudades.length; i++) {
+            $('#selectCiudad').append('<option value="' + ciudades[i] + '">' + ciudades[i] + '</option>');
+        }
+        for (let j = 0; j < tipos.length; j++) {
+            $('#selectTipo').append('<option value="' + tipos[j] + '">' + tipos[j] + '</option>');
+        }
 
-
-
-
-
-}*/
-
-function enviarDatos() {
-
-    var obtenerdatos = $.getJSON("data-1.json")
-    $.ajax({
-
-            url: 'data-1.json',
-            type: 'post',
-            dataType: 'json',
-            data: obtenerdatos,
-            beforeSend: function() {
-
-            }
-        })
-        .done(function(datos, textStatus, jqXHR) {
-            console.log("transmision recibida con exito")
-
-        }).fail(function() {
-
-        }).always(function() {
-
-        })
+        $('select').formSelect();
+    });
 }
 
+//funcion para busqueda
+$('#submitButton').click(function() {
+    let ciudad = $('#selectCiudad option:selected').val();
+    let tipo = $('#selectTipo option:selected').val();
+    let precio = $('#rangoPrecio').val();
 
 
-/*$("#selectTipo").show();
-$("#selectTipo1").show();
-$(".filtroCiudad").show();
-$(".filtrosContenido").show();*/
-
-$('select').formSelect();
+    //Simular llamada a base de datos en buscador.php con AJAX y metodo GET. No se tienen datos sensibles
+    $.post('crear_datos.php', { ciudad: ciudad, tipo: tipo, precio: precio }, function(response) {
+        let data = JSON.parse(response);
+        var r = data.data;
+        showResult(r);
+    });
+});
