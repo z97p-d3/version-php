@@ -55,66 +55,14 @@ $(document).ready(function() {
     inicializarSlider();
 
 
-
+    //generar todos los datos
     $("#mostrarTodos").click(function() {
+        $('.lista').empty();
 
         $.getJSON("data-1.json", function(result) {
             showResult(result)
         });
     });
-
-    function showResult(array) {
-
-        for (let i = 0; i < array.length; i++) {
-            $(".lista").append(
-
-                "<div class='row z-depth-2'>" +
-
-                "<div class='card'>" +
-                "<div class='card-image waves-effect waves-block waves-light col s12 m6 l4'>" +
-                "<img class='activator' src='img/home.jpg'>" +
-                "</div>" +
-                "<div class='card-stacked col s12 m6 l8' irs-min>" +
-                "<div class='card-content'>" +
-                "<div>" +
-                "<b> Direccion: </b>" +
-                `${array[i].Direccion} ` + " </div> " +
-                "<div>" +
-                "<b> Ciudad: </b>" +
-                `${array[i].Ciudad} ` + "</div>" +
-                "<div>" +
-                "<b> Telefono: </b>" +
-                `${array[i].Telefono} ` + "</div>" +
-                "<div>" +
-                "<b> Código postal: </b>" +
-                `${array[i].Codigo_Postal} ` +
-                "</div> " +
-                "<div>" +
-                "<b>" + "Precio: </b>" +
-                "<b class='precioTexto'>" + `${array[i].Precio} ` + "</b>" +
-                "</div>" +
-                " <div>" +
-                "<b> Tipo: </b>" +
-                `${array[i].Tipo} ` + "</div> " +
-                "</div>" +
-
-                "<div class='card-action'>" +
-                "<a href='#'>Leer mas</a>" +
-                "</div>" +
-                "</div>" +
-
-                "</div>" +
-                "</div>" +
-
-                "</div>"
-
-
-
-            )
-        }
-
-    }
-
 
 
 
@@ -123,6 +71,61 @@ $(document).ready(function() {
 
 });
 
+//mostrar todos los resultados que estan el e archivo json 
+function showResult(array) {
+    $('.lista').empty();
+
+    for (let i = 0; i < array.length; i++) {
+        $(".lista").append(
+
+            "<div class='row z-depth-2'>" +
+
+            "<div class='card'>" +
+            "<div class='card-image waves-effect waves-block waves-light col s12 m6 l4'>" +
+            "<img class='activator' src='img/home.jpg'>" +
+            "</div>" +
+            "<div class='card-stacked col s12 m6 l8' irs-min>" +
+            "<div class='card-content'>" +
+            "<div>" +
+            "<b> Direccion: </b>" +
+            `${array[i].Direccion} ` + " </div> " +
+            "<div>" +
+            "<b> Ciudad: </b>" +
+            `${array[i].Ciudad} ` + "</div>" +
+            "<div>" +
+            "<b> Telefono: </b>" +
+            `${array[i].Telefono} ` + "</div>" +
+            "<div>" +
+            "<b> Código postal: </b>" +
+            `${array[i].Codigo_Postal} ` +
+            "</div> " +
+            "<div>" +
+            "<b>" + "Precio: </b>" +
+            "<b class='precioTexto'>" + `${array[i].Precio} ` + "</b>" +
+            "</div>" +
+            " <div>" +
+            "<b> Tipo: </b>" +
+            `${array[i].Tipo} ` + "</div> " +
+            "</div>" +
+
+            "<div class='card-action'>" +
+            "<a href='#'>Leer mas</a>" +
+            "</div>" +
+            "</div>" +
+
+            "</div>" +
+            "</div>" +
+
+            "</div>"
+
+
+
+        )
+    }
+
+}
+
+//rellenar campos de seleccion de ciudad tipo  precio
 function init() {
     var tipos = [];
     var ciudades = [];
@@ -141,8 +144,8 @@ function init() {
         $('select').formSelect();
     });
 }
+//mostrar resultados eligiendo ciudad tipo y precio
 
-//funcion para busqueda
 $('#submitButton').click(function() {
     let ciudad = $('#selectCiudad option:selected').val();
     let tipo = $('#selectTipo option:selected').val();
@@ -150,9 +153,12 @@ $('#submitButton').click(function() {
 
 
     //Simular llamada a base de datos en buscador.php con AJAX y metodo GET. No se tienen datos sensibles
-    $.post('crear_datos.php', { ciudad: ciudad, tipo: tipo, precio: precio }, function(response) {
+    $.get('crear_datos.php', { ciudad: ciudad, tipo: tipo, precio: precio }, function(response) {
         let data = JSON.parse(response);
         var r = data.data;
         showResult(r);
-    });
+
+    })
+
+
 });

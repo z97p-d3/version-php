@@ -1,12 +1,11 @@
 <?php 
 
-include('modulo.php');
 
 
 //Archivo php para llamada AJAX. 
-$ciudad = htmlspecialchars($_POST['ciudad']);
-$tipo = htmlspecialchars($_POST['tipo']);
-$precio = htmlspecialchars($_POST['precio']);
+$ciudad = htmlspecialchars($_GET['ciudad']);
+$tipo = htmlspecialchars($_GET['tipo']);
+$precio = htmlspecialchars($_GET['precio']);
 
 $pos = strpos($precio, ';');
 
@@ -53,41 +52,11 @@ if(!empty($ciudad) && !empty($tipo)){
     $result = $r;
 }
 $rjson = json_encode($result);
-
-
-
+echo '{"result":"success", "message":"Resultados obtenidos exitosamente", "data":'.$rjson.'}';
 
 fclose($file);
 
 
-
-
-
-
-
-
-
-
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-   
-    
-<div class="card" style="width: 18rem;">
-  <img src="img/home.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text"><?php  printf($rjson) ; ?></p>
-  </div>
-</div>
-   
-</body>
-</html>
 

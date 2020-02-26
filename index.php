@@ -1,10 +1,3 @@
-<?php
-
-
-
-?>
-
-
 <!DOCTYPE html>
 <html>
 
@@ -24,73 +17,58 @@
 </head>
 
 <body id="image">
-    <video src="img/video.mp4" id="vidFondo"></video>
+<video src="" id="vidFondo"></video>
 
-    <div class="contenedor">
-        <div class="card rowTitulo col l1">
-            <h1>Buscador</h1>
-        </div>
-        <div class="colFiltros">
-            <form action="crear_datos.php" method="POST" id="formulario">
-                <div class="filtrosContenido">
-                    <div class="tituloFiltros">
+<div class="contenedor">
+  <div class="card rowTitulo">
+    <h1>Buscador</h1>
+  </div>
+  <div class="colFiltros">
+    <form action="buscador.php" method="post" id="formulario">
+      <div class="filtrosContenido">
 
-                        <h5>Realiza una búsqueda personalizada</h5>
-                    </div>
-
-                    <div class="filtroCiudad input-field">
-
-                        <label for="selectCiudad">Ciudad:</label>
-
-                        <select name="ciudad" id="selectCiudad">
-                            <option value="0" disabled selected>Selecciona una ciudad</option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="filtroTipo input-field">
-                        <label for="selecTipo">Tipo:</label>
-                        <select name="tipo" id="selectTipo">
-                            <option value="0" disabled selected>Selecciona un tipo</option>
-
-
-                        </select>
-                    </div>
-                    <div class="filtroPrecio">
-                        <label for="rangoPrecio">Precio:</label>
-
-                        <input type="text" id="rangoPrecio" name="precio" value="" />
-
-                    </div>
-                    <div class="botonField">
-                        <input type="submit" class="btn white" value="Buscar" id="submitButton" >
-                    </div>
-                    <i class="fas fa-fan"></i>
-                    <span></span>
-                </div>
-            </form>
-
+        <div class="tituloFiltros">
+          <h5>Realiza una búsqueda personalizada</h5>
         </div>
 
-
-        <div class="colContenido ">
-            <div class="tituloContenido card">
-                <h5>Resultados de la búsqueda:</h5>
-                <div class="divider"></div>
-                <button type="button" name="todos" class="btn-flat waves-effect" id="mostrarTodos">Mostrar
-                    Todos</button>
-            </div>
-
-            <div class="lista">
-
-            </div>
-
-            
-
+        <div class="filtroCiudad input-field">
+          <label for="selectCiudad">Ciudad:</label>
+          <select name="ciudad" id="selectCiudad">
+            <option value="" selected>Elige una ciudad</option>
+          </select>
         </div>
+
+        <div class="filtroTipo input-field">
+          <label for="selecTipo">Tipo:</label><br>
+          <select name="tipo" id="selectTipo">
+            <option value="" selected>Elige un tipo</option>
+          </select>
+        </div>
+
+        <div class="filtroPrecio">
+          <label for="rangoPrecio">Precio:</label>
+          <input type="text" id="rangoPrecio" name="precio" value="" />
+        </div>
+
+        <div class="botonField">
+          <button class="btn white" type="button" id="submitButton" style="color: #26a69a">Buscar</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="colContenido">
+
+    <div class="tituloContenido card">
+      <h5>Resultados de la búsqueda:</h5>
+      <div class="divider"></div>
+      <button type="button" name="todos" class="btn-flat waves-effect" id="mostrarTodos">Mostrar Todos</button>
     </div>
+
+    <div class="lista"></div>
+  </div>
+</div>
 
     <script type="text/javascript" src="js/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="js/ion.rangeSlider.min.js"></script>
